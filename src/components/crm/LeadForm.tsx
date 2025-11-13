@@ -38,10 +38,10 @@ export function LeadForm({ lead, open, onOpenChange, onSave }: LeadFormProps) {
   const [formData, setFormData] = useState<Partial<Lead>>(
     lead || {
       nome: "",
-      email: "",
       telefone: "",
-      empresa: "",
       status: "Novo",
+      ultimo_contato: "",
+      data_agendamento: "",
     }
   );
 
@@ -77,31 +77,6 @@ export function LeadForm({ lead, open, onOpenChange, onSave }: LeadFormProps) {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="empresa">Empresa *</Label>
-              <Input
-                id="empresa"
-                value={formData.empresa}
-                onChange={(e) =>
-                  setFormData({ ...formData, empresa: e.target.value })
-                }
-                required
-                placeholder="Nome da empresa"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="email">Email *</Label>
-              <Input
-                id="email"
-                type="email"
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
-                required
-                placeholder="email@exemplo.com"
-              />
-            </div>
-            <div className="space-y-2">
               <Label htmlFor="telefone">Telefone *</Label>
               <Input
                 id="telefone"
@@ -111,6 +86,28 @@ export function LeadForm({ lead, open, onOpenChange, onSave }: LeadFormProps) {
                 }
                 required
                 placeholder="(11) 98765-4321"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="ultimo_contato">Último Contato</Label>
+              <Input
+                id="ultimo_contato"
+                value={formData.ultimo_contato}
+                onChange={(e) =>
+                  setFormData({ ...formData, ultimo_contato: e.target.value })
+                }
+                placeholder="Ex: 12/01/2025"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="data_agendamento">Data Agendamento</Label>
+              <Input
+                id="data_agendamento"
+                value={formData.data_agendamento}
+                onChange={(e) =>
+                  setFormData({ ...formData, data_agendamento: e.target.value })
+                }
+                placeholder="Ex: 15/01/2025 10:00"
               />
             </div>
             <div className="space-y-2">

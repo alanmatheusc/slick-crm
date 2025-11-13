@@ -2,9 +2,7 @@ import { Lead, STATUS_COLORS } from "@/types/lead";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, Building2, Edit, Calendar } from "lucide-react";
-import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
+import { Phone, Edit, Calendar, Clock } from "lucide-react";
 
 interface LeadCardProps {
   lead: Lead;
@@ -19,12 +17,8 @@ export function LeadCard({ lead, onEdit }: LeadCardProps) {
       <CardContent className="pt-6">
         <div className="space-y-4">
           <div className="flex items-start justify-between">
-            <div>
+            <div className="flex-1">
               <h3 className="font-semibold text-lg text-foreground">{lead.nome}</h3>
-              <p className="text-sm text-muted-foreground flex items-center gap-1 mt-1">
-                <Building2 className="h-3 w-3" />
-                {lead.empresa}
-              </p>
             </div>
             <Badge className={`${statusColor.bg} ${statusColor.text} shrink-0`}>
               {lead.status}
@@ -33,17 +27,21 @@ export function LeadCard({ lead, onEdit }: LeadCardProps) {
 
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Mail className="h-4 w-4 shrink-0" />
-              <span className="truncate">{lead.email}</span>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Phone className="h-4 w-4 shrink-0" />
               <span>{lead.telefone}</span>
             </div>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Calendar className="h-4 w-4 shrink-0" />
-              <span>Atualizado em {format(lead.atualizadoEm, "dd/MM/yyyy", { locale: ptBR })}</span>
-            </div>
+            {lead.ultimo_contato && (
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Clock className="h-4 w-4 shrink-0" />
+                <span>Último contato: {lead.ultimo_contato}</span>
+              </div>
+            )}
+            {lead.data_agendamento && (
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Calendar className="h-4 w-4 shrink-0" />
+                <span>Agendado: {lead.data_agendamento}</span>
+              </div>
+            )}
           </div>
 
           <Button 
