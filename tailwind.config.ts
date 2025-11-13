@@ -57,6 +57,18 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        status: {
+          novo: "hsl(var(--status-novo))",
+          "novo-foreground": "hsl(var(--status-novo-foreground))",
+          abordagem: "hsl(var(--status-abordagem))",
+          "abordagem-foreground": "hsl(var(--status-abordagem-foreground))",
+          followup: "hsl(var(--status-followup))",
+          "followup-foreground": "hsl(var(--status-followup-foreground))",
+          desqualificado: "hsl(var(--status-desqualificado))",
+          "desqualificado-foreground": "hsl(var(--status-desqualificado-foreground))",
+          agendado: "hsl(var(--status-agendado))",
+          "agendado-foreground": "hsl(var(--status-agendado-foreground))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

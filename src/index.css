@@ -8,35 +8,47 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 210 20% 98%;
+    --foreground: 215 25% 27%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 215 25% 27%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 215 25% 27%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 215 90% 55%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 210 15% 93%;
+    --secondary-foreground: 215 25% 27%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 210 15% 95%;
+    --muted-foreground: 215 15% 50%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 215 90% 95%;
+    --accent-foreground: 215 90% 45%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 215 20% 88%;
+    --input: 215 20% 92%;
+    --ring: 215 90% 55%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+    
+    /* Status colors */
+    --status-novo: 215 90% 55%;
+    --status-novo-foreground: 0 0% 100%;
+    --status-abordagem: 25 95% 53%;
+    --status-abordagem-foreground: 0 0% 100%;
+    --status-followup: 45 93% 47%;
+    --status-followup-foreground: 0 0% 100%;
+    --status-desqualificado: 0 72% 51%;
+    --status-desqualificado-foreground: 0 0% 100%;
+    --status-agendado: 142 71% 45%;
+    --status-agendado-foreground: 0 0% 100%;
 
     --sidebar-background: 0 0% 98%;
 
