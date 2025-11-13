@@ -10,8 +10,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Edit } from "lucide-react";
-import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
 
 interface LeadTableProps {
   leads: Lead[];
@@ -25,18 +23,17 @@ export function LeadTable({ leads, onEdit }: LeadTableProps) {
         <TableHeader>
           <TableRow>
             <TableHead>Nome</TableHead>
-            <TableHead>Empresa</TableHead>
-            <TableHead>Email</TableHead>
             <TableHead>Telefone</TableHead>
             <TableHead>Status</TableHead>
-            <TableHead>Atualizado</TableHead>
+            <TableHead>Último Contato</TableHead>
+            <TableHead>Agendamento</TableHead>
             <TableHead className="text-right">Ações</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {leads.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
+              <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
                 Nenhum lead encontrado
               </TableCell>
             </TableRow>
@@ -46,8 +43,6 @@ export function LeadTable({ leads, onEdit }: LeadTableProps) {
               return (
                 <TableRow key={lead.id}>
                   <TableCell className="font-medium">{lead.nome}</TableCell>
-                  <TableCell>{lead.empresa}</TableCell>
-                  <TableCell>{lead.email}</TableCell>
                   <TableCell>{lead.telefone}</TableCell>
                   <TableCell>
                     <Badge className={`${statusColor.bg} ${statusColor.text}`}>
@@ -55,7 +50,10 @@ export function LeadTable({ leads, onEdit }: LeadTableProps) {
                     </Badge>
                   </TableCell>
                   <TableCell className="text-muted-foreground">
-                    {format(lead.atualizadoEm, "dd/MM/yyyy", { locale: ptBR })}
+                    {lead.ultimo_contato || "-"}
+                  </TableCell>
+                  <TableCell className="text-muted-foreground">
+                    {lead.data_agendamento || "-"}
                   </TableCell>
                   <TableCell className="text-right">
                     <Button

@@ -1,6 +1,5 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Lead, LeadStatus } from "@/types/lead";
-import { mockLeads } from "@/data/mockLeads";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -31,20 +30,51 @@ import {
 import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
-  const [leads, setLeads] = useState<Lead[]>(mockLeads);
+  const [leads, setLeads] = useState<Lead[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<LeadStatus | "all">("all");
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
+
+  // Buscar leads da API
+  useEffect(() => {
+    const fetchLeads = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch("http://localhost:5678/webhook/getLeads");
+        if (response.ok) {
+          const data = await response.json();
+          const formattedLeads = data.map((lead: any, index: number) => ({
+            id: lead.id || `${Date.now()}-${index}`,
+            nome: lead.nome || "",
+            telefone: lead.telefone || "",
+            status: lead.status || "Novo",
+            ultimo_contato: lead.ultimo_contato || "",
+            data_agendamento: lead.data_agendamento || "",
+          }));
+          setLeads(formattedLeads);
+        } else {
+          setLeads([]);
+        }
+      } catch (error) {
+        console.error("Erro ao buscar leads:", error);
+        setLeads([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchLeads();
+  }, []);
 
   // Filtrar leads
   const filteredLeads = useMemo(() => {
     return leads.filter((lead) => {
       const matchesSearch =
         lead.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        lead.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        lead.empresa.toLowerCase().includes(searchTerm.toLowerCase());
+        lead.telefone.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesStatus = statusFilter === "all" || lead.status === statusFilter;
       return matchesSearch && matchesStatus;
     });
@@ -89,7 +119,7 @@ const Index = () => {
       setLeads((prev) =>
         prev.map((lead) =>
           lead.id === selectedLead.id
-            ? { ...lead, ...leadData, atualizadoEm: new Date() }
+            ? { ...lead, ...leadData }
             : lead
         )
       );
@@ -102,12 +132,10 @@ const Index = () => {
       const newLead: Lead = {
         id: Date.now().toString(),
         nome: leadData.nome || "",
-        email: leadData.email || "",
         telefone: leadData.telefone || "",
-        empresa: leadData.empresa || "",
         status: leadData.status || "Novo",
-        criadoEm: new Date(),
-        atualizadoEm: new Date(),
+        ultimo_contato: leadData.ultimo_contato || "",
+        data_agendamento: leadData.data_agendamento || "",
       };
       setLeads((prev) => [newLead, ...prev]);
       toast({
@@ -214,7 +242,7 @@ const Index = () => {
                 <div className="relative flex-1 max-w-md">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
-                    placeholder="Buscar por nome, email ou empresa..."
+                    placeholder="Buscar por nome ou telefone..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="pl-9"

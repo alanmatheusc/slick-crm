@@ -8,12 +8,10 @@ export type LeadStatus =
 export interface Lead {
   id: string;
   nome: string;
-  email: string;
   telefone: string;
-  empresa: string;
   status: LeadStatus;
-  criadoEm: Date;
-  atualizadoEm: Date;
+  ultimo_contato?: string;
+  data_agendamento?: string;
 }
 
 export const STATUS_COLORS: Record<LeadStatus, { bg: string; text: string }> = {
