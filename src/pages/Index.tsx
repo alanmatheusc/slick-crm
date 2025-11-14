@@ -43,7 +43,7 @@ const Index = () => {
     const fetchLeads = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch("https://fresh-eel-23.hooks.n8n.cloud/webhook/getLeads");
+        const response = await fetch("https://clever-mayfly-19.hooks.n8n.cloud/webhook/getLeads");
         if (response.ok) {
           const data = await response.json();
           const formattedLeads = data.map((lead: any, index: number) => ({
